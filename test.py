@@ -3,8 +3,7 @@ This module collects helper functions and classes that "span" multiple levels
 of MVC. In other words, these functions/classes introduce controlled coupling
 for convenience's sake.
 """
-# from в моем понимании, это "штука", которая дает понять языку откуда брать тот или иной class или def(я не знаю , что такое класс, но через контрл я прокликал loader в django/template )
-# ниже идет описание того , откуда брать определенные файлы, в которых находятся функции
+# from в моем понимании, это "штука", которая дает понять откуда брать тот или иной class или def(я не знаю , что такое класс, но через контрл я прокликал loader в django/template )
 # функции , в свою очередь, это готовые куски кода, которые , чтобы не переписывать каждый раз,наверно, и в пользу читаемости, а так же вызова когда угодно(пока не представляю как может пригодиться это когда угодно) выносят отдельно
 
 
@@ -18,7 +17,7 @@ from django.template import loader
 from django.urls import NoReverseMatch, reverse
 from django.utils.functional import Promise
 
-
+# def это функция, а то, что в скобках рассказать не смогу
 def render(
     request, template_name, context=None, content_type=None, status=None, using=None
 ):
@@ -27,6 +26,7 @@ def render(
     django.template.loader.render_to_string() with the passed arguments.
     """
     content = loader.render_to_string(template_name, context, request, using=using)
+    # return это выход из функции и возвращение ответа (в данном случае-классом в котором запустятся функции(content, content_type, status)
     return HttpResponse(content, content_type, status)
 
 
