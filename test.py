@@ -25,8 +25,9 @@ def render(
     Return an HttpResponse whose content is filled with the result of calling
     django.template.loader.render_to_string() with the passed arguments.
     """
+    #content это переменная, которая переводит непонятное мне в скобках render() , через функцию render_to_string , которые находятся в loader, в строчный вид
     content = loader.render_to_string(template_name, context, request, using=using)
-    # return это выход из функции и возвращение ответа (в данном случае-классом в котором запустятся функции(content, content_type, status)
+    # return это выход из функции и возвращение ответа (в данном случае-классом функции которого конвертируют данные в http(могу ошибаться))
     return HttpResponse(content, content_type, status)
 
 
