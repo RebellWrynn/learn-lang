@@ -17,7 +17,7 @@ from django.template import loader
 from django.urls import NoReverseMatch, reverse
 from django.utils.functional import Promise
 
-# def это функция, а то, что в скобках рассказать не смогу
+# def это функция, а то, что в скобках, это параметры, сказать, что такое параметр я не смогу
 def render(
     request, template_name, context=None, content_type=None, status=None, using=None
 ):
@@ -30,7 +30,7 @@ def render(
     # return это выход из функции и возвращение ответа (в данном случае-классом функции которого конвертируют данные в http(могу ошибаться))
     return HttpResponse(content, content_type, status)
 
-
+#снова функция в которой задаются параметры
 def redirect(to, *args, permanent=False, preserve_request=False, **kwargs):
     """
     Return an HttpResponseRedirect to the appropriate URL for the arguments
@@ -49,15 +49,17 @@ def redirect(to, *args, permanent=False, preserve_request=False, **kwargs):
     permanent redirect. Set preserve_request=True to instruct the user agent
     to preserve the original HTTP method and body when following the redirect.
     """
+    #переменная в которой задаются параметры (if-если, esle иначе)
     redirect_class = (
         HttpResponsePermanentRedirect if permanent else HttpResponseRedirect
     )
+    #возвращает переменную и это все , что я могу сказать, дальше не понимаю что именно
     return redirect_class(
         resolve_url(to, *args, **kwargs),
         preserve_request=preserve_request,
     )
 
-
+#создание функции c параметром
 def _get_queryset(klass):
     """
     Return a QuerySet or a Manager.
@@ -66,11 +68,14 @@ def _get_queryset(klass):
     the job.
     """
     # If it is a model class or anything else with ._default_manager
+    #тут смогу только написать, что if, это если
     if hasattr(klass, "_default_manager"):
+        #возвращает что-то
         return klass._default_manager.all()
+    #возвращает параметр
     return klass
 
-
+#создание функции с параметрами
 def get_object_or_404(klass, *args, **kwargs):
     """
     Use get() to return an object, or raise an Http404 exception if the object
@@ -82,18 +87,28 @@ def get_object_or_404(klass, *args, **kwargs):
     Like with QuerySet.get(), MultipleObjectsReturned is raised if more than
     one object is found.
     """
+    #переменная с функцией _get_queryset(klass)
     queryset = _get_queryset(klass)
+    #если не , а дальше не могу написать
     if not hasattr(queryset, "get"):
+        #создание переменной
         klass__name = (
+            №тут я знаю только if и else
             klass.__name__ if isinstance(klass, type) else klass.__class__.__name__
         )
+        № не знаю что такое raise
         raise ValueError(
             "First argument to get_object_or_404() must be a Model, Manager, "
+            #не знаю что такое процент
             "or QuerySet, not '%s'." % klass__name
         )
+    №try:если нет, то попробовать то , что входит ниже 
     try:
+        №вернуть 
         return queryset.get(*args, **kwargs)
+    №не знаю что такое exept
     except queryset.model.DoesNotExist:
+    #не знаю что такое raise
         raise Http404(
             "No %s matches the given query." % queryset.model._meta.object_name
         )
