@@ -87,44 +87,49 @@ def get_object_or_404(klass, *args, **kwargs):
     Like with QuerySet.get(), MultipleObjectsReturned is raised if more than
     one object is found.
     """
-    #переменная с функцией _get_queryset(klass)
+    #переменная с функцией _get_queryset
     queryset = _get_queryset(klass)
     #если не , а дальше не могу написать
     if not hasattr(queryset, "get"):
         #создание переменной
         klass__name = (
-            №тут я знаю только if и else
+            #тут я знаю только if и else
             klass.__name__ if isinstance(klass, type) else klass.__class__.__name__
         )
-        № не знаю что такое raise
+        # не знаю что такое raise
         raise ValueError(
             "First argument to get_object_or_404() must be a Model, Manager, "
             #не знаю что такое процент
             "or QuerySet, not '%s'." % klass__name
         )
-    №try:если нет, то попробовать то , что входит ниже 
+    # try:если нет, то попробовать то , что входит ниже 
     try:
-        №вернуть 
+        #вернуть 
         return queryset.get(*args, **kwargs)
-    №не знаю что такое exept
+    # вернуть исключая queryset.model.DoesNotExist 
     except queryset.model.DoesNotExist:
-    #не знаю что такое raise
+    #не знаю что такое raise и то что ниже
         raise Http404(
             "No %s matches the given query." % queryset.model._meta.object_name
         )
 
-
+#  что такое async не знаю , но снова идет вызов функции с параметрами
 async def aget_object_or_404(klass, *args, **kwargs):
     """See get_object_or_404()."""
+    #переменная значением которой будет функция с параметром klass
     queryset = _get_queryset(klass)
+    #если функция hasarrt не с параметром aget, то 
     if not hasattr(queryset, "aget"):
+        #переменной klass__name присвоить и дальше две операции с если и иначе, но я не могу их понять 
         klass__name = (
             klass.__name__ if isinstance(klass, type) else klass.__class__.__name__
         )
+        #не знаю что такое raise и дальше не понимаю
         raise ValueError(
             "First argument to aget_object_or_404() must be a Model, Manager, or "
             f"QuerySet, not '{klass__name}'."
         )
+    #попробовать вернуть и дальше ничего не могу понять 
     try:
         return await queryset.aget(*args, **kwargs)
     except queryset.model.DoesNotExist:
