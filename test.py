@@ -135,7 +135,7 @@ async def aget_object_or_404(klass, *args, **kwargs):
     except queryset.model.DoesNotExist:
         raise Http404(f"No {queryset.model._meta.object_name} matches the given query.")
 
-
+#снова функция
 def get_list_or_404(klass, *args, **kwargs):
     """
     Use filter() to return a list of objects, or raise an Http404 exception if
@@ -144,15 +144,20 @@ def get_list_or_404(klass, *args, **kwargs):
     klass may be a Model, Manager, or QuerySet object. All other passed
     arguments and keyword arguments are used in the filter() query.
     """
+    # создается переменаня c параметром
     queryset = _get_queryset(klass)
+    #если функция hasattr не с параметром filter, то 
     if not hasattr(queryset, "filter"):
+        #создание переменной а что внутри не понимаю
         klass__name = (
             klass.__name__ if isinstance(klass, type) else klass.__class__.__name__
         )
+        # здесь тоже непонятно
         raise ValueError(
             "First argument to get_list_or_404() must be a Model, Manager, or "
             "QuerySet, not '%s'." % klass__name
         )
+        #создается переменная и дальше непонятно что 
     obj_list = list(queryset.filter(*args, **kwargs))
     if not obj_list:
         raise Http404(
@@ -160,11 +165,14 @@ def get_list_or_404(klass, *args, **kwargs):
         )
     return obj_list
 
-
+#создание функции с параметрами 
 async def aget_list_or_404(klass, *args, **kwargs):
     """See get_list_or_404()."""
+    #создание переменной с параметром
     queryset = _get_queryset(klass)
+    #если hasattr без параметра фильтр , то 
     if not hasattr(queryset, "filter"):
+        # задается переменная и дальне не знаю что 
         klass__name = (
             klass.__name__ if isinstance(klass, type) else klass.__class__.__name__
         )
