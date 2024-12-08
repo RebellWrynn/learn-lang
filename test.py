@@ -186,6 +186,7 @@ async def aget_list_or_404(klass, *args, **kwargs):
     return obj_list
 
 
+#  создание функции с непонятными параметрами
 def resolve_url(to, *args, **kwargs):
     """
     Return a URL appropriate for the arguments passed.
@@ -200,21 +201,29 @@ def resolve_url(to, *args, **kwargs):
         * A URL, which will be returned as-is.
     """
     # If it's a model, use get_absolute_url()
+    # если функция hasattr с параметром get_absolute_url, то 
     if hasattr(to, "get_absolute_url"):
+        # возвращает оба параметра 
         return to.get_absolute_url()
-
+    # если функция isisnstance с параметрами to и классом Promise, то 
     if isinstance(to, Promise):
         # Expand the lazy instance, as it can cause issues when it is passed
         # further to some Python functions like urlparse.
+        # перевести параметр в строчный вид
         to = str(to)
 
     # Handle relative URLs
+    # если функция isinstance с параметром to строчного вида (то что после and ы ничего не понял)
     if isinstance(to, str) and to.startswith(("./", "../")):
+        # вернуть to
         return to
 
     # Next try a reverse URL resolution.
+    #  не знаю что такое трай
     try:
+        # вернуть функцию reverse, которая , на мой взгляд, делает все параметры строчного вида
         return reverse(to, args=args, kwargs=kwargs)
+    # не знаю знаю что будет делаться ниже, но с конце возвращают параметр to
     except NoReverseMatch:
         # If this is a callable, re-raise.
         if callable(to):
